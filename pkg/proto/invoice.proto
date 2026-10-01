@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "invoice-service/pkg/proto";
+
+import "google/protobuf/timestamp.proto";
+
+message CreateInvoiceRequest {
+  string customer_id = 1;
+  double amount = 2;
+  google.protobuf.Timestamp due_date = 3;
+  google.protobuf.Timestamp issue_date = 4;
+  string description = 5;
+}
+
+message CreateInvoiceResponse {
+  InvoiceResponse invoice = 1;
+  string error = 2;
+}
+
+message GetInvoiceRequest {
+  string id = 1;
+}
+
+message GetInvoiceResponse {
+  InvoiceResponse invoice = 1;
+  string error = 2;
+}
+
+message UpdateInvoiceRequest {
+  string id = 1;
+  double amount = 2;
+  string status = 3;
+}
+
+message UpdateInvoiceResponse {
+  InvoiceResponse invoice = 1;
+  string error = 2;
+}
+
+message InvoiceResponse {
+  string id = 1;
+  string customer_id = 2;
+  double amount = 3;
+  string status = 4;
+  google.protobuf.Timestamp due_date = 5;
+  google.protobuf.Timestamp issue_date = 6;
+  string description = 7;
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+}
+
+service InvoiceService {
+  rpc CreateInvoice(CreateInvoiceRequest) returns (CreateInvoiceResponse);
+  rpc GetInvoice(GetInvoiceRequest) returns (GetInvoiceResponse);
+  rpc UpdateInvoice(UpdateInvoiceRequest) returns (UpdateInvoiceResponse);
+}
+
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+}

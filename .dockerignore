@@ -1,0 +1,52 @@
+# Archivos de control de versiones
+.git
+.gitignore
+
+# Documentación
+README.md
+docs/
+documentation/
+*.md
+
+# Archivos de configuración local
+.env
+.env.local
+.env.*.local
+
+# Archivos de IDE y herramientas
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Archivos de build y compilación
+/bin/
+/obj/
+/out/
+dist/
+build/
+
+# Tests y coverage
+*_test.go
+*.test
+coverage.txt
+coverage.html
+
+# Archivos de dependencias descargadas
+vendor/
+
+# Archivos temporales
+tmp/
+temp/
+*.log
+
+# Kubernetes y Docker (se manejan fuera del contexto de build)
+deployments/
+k8s/
+docker-compose*.yml
+Dockerfile
+
+# Archivos de desarrollo local
+Makefile
+*.sum
